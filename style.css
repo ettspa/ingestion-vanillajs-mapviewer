@@ -1,0 +1,27 @@
+body,html{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+.radiobutton-style{
+    display: flex;
+    flex-direction: row;
+}
+
+.leaflet-max-pane{
+    z-index: 400 !important;
+}
+
+.leaflet-mid-pane{
+    z-index: 300 !important;
+}
+
+.leaflet-min-pane{
+    z-index: 250 !important;
+}

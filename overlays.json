@@ -1,0 +1,27 @@
+[
+    {
+        "name": "All Platforms 24hours",
+        "url": "https://s4frontex.eu/geoserver/FRONTEX/wms?FEATURE_COUNT=5000",
+        "params": {
+            "layers": "platformfrontex_24hours",
+            "format": "image/png",
+            "transparent": true,
+            "styles": "",
+            "pane":"max"
+        }
+    },
+    {
+        "name": "Daily Sea Water Temperature",
+        "url": "https://s4frontex.eu/ncWMS/wms?",
+        "params": {
+            "layers": "SST_GLO_SST_L4_NRT_OBSERVATIONS_010_001/analysed_sst",
+            "format": "image/png",
+            "transparent": true,
+            "styles": "default-scalar/x-Rainbow",
+            "max": 40,
+            "min": -3,
+            "palette": "x-Rainbow",
+            "pane":"mid"
+        }
+    }
+]
