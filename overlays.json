@@ -1,27 +1,36 @@
 [
+    
     {
-        "name": "All Platforms 24hours",
-        "url": "https://s4frontex.eu/geoserver/FRONTEX/wms?FEATURE_COUNT=5000",
+        "name": "Sea Water Temperature",
+        "url": "https://erddap.emodnet-physics.eu/ncWMS2/wms?",
         "params": {
-            "layers": "platformfrontex_24hours",
+            "layers": "INSITU_GLO_TS_OA_REP_OBSERVATIONS_013_002_b_TEMP/TEMP",
             "format": "image/png",
             "transparent": true,
             "styles": "",
-            "pane":"max"
-        }
-    },
-    {
-        "name": "Daily Sea Water Temperature",
-        "url": "https://s4frontex.eu/ncWMS/wms?",
-        "params": {
-            "layers": "SST_GLO_SST_L4_NRT_OBSERVATIONS_010_001/analysed_sst",
-            "format": "image/png",
-            "transparent": true,
-            "styles": "default-scalar/x-Rainbow",
             "max": 40,
             "min": -3,
-            "palette": "x-Rainbow",
-            "pane":"mid"
+            "palette": "",
+            "pane":"mid",
+            "dataParser":"modelParser",
+            "type":"wms"
+        }
+        
+    },
+    {
+        "name": "Mooring Platforms",
+        "url": "https://erddap.emodnet-physics.eu/erddap/tabledap/demo_MOORING_positions.geoJson?platformid%2Cplatformcode%2Cdataownerdescr%2Ctime%2Clatitude%2Clongitude%2Cedmocode&time%3E=max(time)-7d&distinct()",
+        "params": {
+            "pane":"max",
+            "type":"geoJson",
+            "pointToLayer":{
+                "radius": 4,
+                "fillColor": "#ff7800",
+                "color": "#000",
+                "weight": 1,
+                "opacity": 1,
+                "fillOpacity": 0.8
+            }
         }
     }
 ]
