@@ -1,37 +1,61 @@
 * {
+    box-sizing: border-box;
+    scrollbar-width: thin;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif !important;
 }
 
 body,
 html {
-    width: 100%;
-    height: 100%;
     margin: 0px;
-    overflow-y: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-width: 100vw;
+    max-height: 100vh;
 }
 
-#map {
-    width: 100%;
-    height: 100%;
-}
 
-.sidenav-container-open {
-    position: absolute;
+.main-container{
     display: flex;
     flex-direction: column;
-    top: 0;
-    left: 0;
-    width: 400px;
+    width: 100vw;
+    max-width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+}
+
+
+.map-sidenav-container{
+    display: flex;
+    width: 100vw;
+    height: 50%;
+    flex-grow: 1;
+}
+
+
+#map {
+    flex-grow: 1;
     height: 100%;
+}
+
+.sidenav-container {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 35%; /*media query for mobile*/
+    max-height: 100vh;
     background-color: white;
-    z-index: 600;
-    gap: 8px;
-    padding-top: 8px;
+    z-index: 500;
     overflow-y: auto;
 }
 
-.sidenav-container-closed {
-    display: none;
+#data-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    max-height: 100%;
 }
 
 .button-toggle-sidenav {
@@ -42,7 +66,26 @@ html {
     z-index: 600;
 }
 
+.button-toggle-chart {
+    position: relative;
+    display: flex;
+    bottom: 2vh;      
+}
+
+.button-toggle-chart>button {
+    cursor: pointer;
+    border: none;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    background-image: url('./assets/icons/close_black_24dp.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer; 
+}
+
 .button-toggle-sidenav>button {
+    cursor: pointer;
     border: none;
     background-color: white;
     width: 50px;
@@ -52,11 +95,11 @@ html {
     background-image: url('./assets/icons/arrow_forward_ios_black_24dp.svg');
     background-repeat: no-repeat;
     background-position: center;
+    cursor: pointer; 
 }
 
 .button-toggle-sidenav-open {
-    left: 400px;
-
+    left: 34.5vw;
 }
 
 .button-toggle-sidenav-open>button {
@@ -87,6 +130,7 @@ html {
     border-radius: 8px;
     padding: 8px;
     gap: 8px;
+    box-shadow: 1px 1px 3px 1px #00000030;
 }
 
 .title {
@@ -94,9 +138,85 @@ html {
     font-size: small;
 }
 
-.value{
-font-size: medium;
+.value {
+    font-size: medium;
+}
 
+
+
+.sidenav-button {
+    border: none;
+    border-radius: 8px;
+    background-color: #363636;
+    color: white;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.clear-button {
+    margin: 8px;
+    cursor: pointer; 
+}
+
+
+
+.chart-container {
+    display: none;
+    width: 100vw;
+}
+
+
+
+/* css for loader */
+
+.loader-container{
+    display: none;
+    flex-direction: row;
+    align-items: center;
+    color: white;
+    background-color: black;
+    border-radius: 8px;
+    padding: 8px;
+    position: absolute;
+    left: 45vw;
+    bottom: 12px;
+    z-index: 600;
+}
+
+#loader {
+    display: flex;
+    border: 4px solid transparent;
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    width: 32px;
+    height: 32px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+}
+
+.loading-text{
+    margin-left: 8px;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 /* override leaflet css */
@@ -120,6 +240,4 @@ font-size: medium;
 .leaflet-control-layers {
     border: none !important;
     background-color: white !important;
-
 }
-

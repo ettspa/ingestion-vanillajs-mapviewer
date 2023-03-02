@@ -13,7 +13,8 @@
             "palette": "",
             "pane":"mid",
             "dataParser":"modelParser",
-            "type":"wms"
+            "type":"wms",
+            "dataUrl": "https://erddap.emodnet-physics.eu/erddap/griddap/INSITU_GLO_TS_OA_REP_OBSERVATIONS_013_002_b_TEMP.json?TEMP%5B(2019-03-15T00:00:00Z):1:(2019-09-15T00:00:00Z)%5D%5B(1.0):1:(1.0)%5D%5B(LAT):1:(LAT)%5D%5B(LNG):1:(LNG)%5D"
         }
         
     },
@@ -23,6 +24,7 @@
         "params": {
             "pane":"max",
             "type":"geoJson",
+            "dataParser":"platformParser",
             "pointToLayer":{
                 "radius": 4,
                 "fillColor": "#ff7800",
@@ -30,7 +32,8 @@
                 "weight": 1,
                 "opacity": 1,
                 "fillOpacity": 0.8
-            }
+            },
+            "dataUrl":"https://erddap.emodnet-physics.eu/erddap/tabledap/EP_ERD_INT_TEMP_AL_TS_NRT.json?time%2CTEMP&EP_PLATFORM_ID="
         }
     }
 ]

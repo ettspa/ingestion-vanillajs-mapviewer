@@ -10,27 +10,44 @@
         integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
         integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+    <script src="./components/loader.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/moment@^2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@^1"></script>
+    <script src="./components/ChartManager.js"></script>
+    <script src="./components/sidenav.js"></script>
+    <script src="./components/mapWrapper.js"></script>
+    <script src="./components/dataManager.js"></script>
     <title>mapViewer</title>
 </head>
 
 <body>
-    <div id="map"></div>
-    <div>
-        <div id="sidenav-container" class="sidenav-container-closed">
+    <div class="main-container">
+        <div class="map-sidenav-container">
+            <div id="sidenav-container" class="sidenav-container">
+                <div id='data-container'></div>
+                <button onclick="Sidenav.clearData()" class="sidenav-button clear-button">Clear</button>
+            </div>
+            <div id="toggle-button" class="button-toggle-sidenav">
+                <button onclick="Sidenav.toggleSidenav()"></button>
+            </div>
+            <div id="map"></div>
+        </div>
+        
+        
+        <div id="main-chart-container" class="chart-container">
+            <canvas id="chart"></canvas>
+            <div class="button-toggle-chart">
+                <button onclick="ChartManager.closeChartDisplayer('main-chart-container')"></button>
+            </div>
+        </div>
+        <div id="loader-container" class="loader-container">
+            <div id="loader"></div>
+            <span class="loading-text">loading data ...</span>
+        </div>
 
-        </div>
-        <div id="toggle-button" class="button-toggle-sidenav">
-            <button onclick="Sidenav.toggleSidenav()"></button>
-        </div>
     </div>
-
 </body>
-<script src="./sidenav.js"></script>
-<script src="./getFeature.js"></script>
-<script src="./mapWrapper.js"></script>
-<script src="./platformParser.js"></script>
-<script src="./modelParser.js"></script>
-<script src="./dataParsers.js"></script>
 <script src="./app.js"></script>
 
 </html>
