@@ -1,5 +1,11 @@
-let marker;
+let marker; // A variable called marker is declared with undefined as a value
+
+// Creates a class called MapWrapper
 class MapWrapper {
+
+    // The initMap() method is the main method that initializes the map object and sets its properties, including the center, zoom level, minimum zoom, 
+    // and maximum bounds. It also loads and creates the base and overlay layers using the loadBaseLayers() and loadOverlays() methods. 
+    // Finally, it adds a click event listener on the map object that displays information about the clicked location using the clickInfoDisplay() method.
 
     static async initMap(baseLayersUrl, overlaysLayerUrl) {
 
@@ -25,6 +31,8 @@ class MapWrapper {
         L.control.layers(baselayers, overlays).addTo(map);
         return map
     }
+    // The loadBaseLayers() method fetch data from the provided URLs and return promises that resolve to the base and overlay layers objects. 
+    // These methods call the createBaseLayerObj() method, which process the fetched data and create an object containing the configured tile layers.
 
     static async loadBaseLayers(baseLayersUrl) {
         return await fetch(baseLayersUrl)
@@ -44,6 +52,8 @@ class MapWrapper {
         }, {});
     }
 
+    // The loadOverlays() method fetch data from the provided URLs and return promises that resolve to the base and overlay layers objects. 
+    // These methods call the createOverlayObj() method, which process the fetched data and create an object containing the configured tile layers.
     static async loadOverlays(overlaysLayerUrl) {
         return await fetch(overlaysLayerUrl)
             .then(response => response.json())
@@ -53,6 +63,7 @@ class MapWrapper {
             });
     }
 
+    // The createOverlayObj() method checks the type of each overlay layer and creates either a WMS layer or a GeoJSON layer. 
     static createOverlayObj(data) {
         return data.reduce((p, c) => {
             if (c.params.type === 'wms') {
@@ -64,6 +75,8 @@ class MapWrapper {
         }, {});
     }
 
+    // The createGeoJsonLayer() method creates a GeoJSON layer with custom point markers and click event listeners for displaying information about the clicked
+    // feature.
     static createGeoJsonLayer(url, params) {
         const geoJSON = L.geoJSON(null, {
             pointToLayer: (f, latlng) => L.circleMarker(latlng, { ...params.pointToLayer, pane: params.pane }),
@@ -83,11 +96,17 @@ class MapWrapper {
         return geoJSON;
     }
 
+    // The createPane() method creates custom panes for the tile layers based on their z-index.
     static createPane(map, name, zindex) {
         map.createPane(name);
         map.getPane(name).style.zIndex = zindex;
     }
 
+    // The clickInfoDisplay() method creates a marker at the clicked location using the createMarker() method and calls the getData() method 
+    // to retrieve information about the clicked location from the active overlay layers. 
+    // This method loops through all the active overlay layers and sends a custom event to start the loading animation. 
+    // It then retrieves the data using the getData() method and sends another custom event with the retrieved data. 
+    // Finally, it sends a custom event to stop the loading animation.
     static async clickInfoDisplay(pos) {
         MapWrapper.createMarker(pos.latlng);
         const activeOverlays = MapWrapper.createActiveOverlays();
@@ -102,6 +121,7 @@ class MapWrapper {
         });
     }
 
+    // the createMarker() method creates a marker at the clicked location
     static createMarker(latlng) {
         const markerOptions = {
             radius: 8,
@@ -119,6 +139,7 @@ class MapWrapper {
         };
     }
 
+    // The createActiveOverlays() method retrieves all the active overlay layers from the map object and returns an array of these layers. 
     static createActiveOverlays() {
         const temp = [];
         map.eachLayer(l => {
@@ -129,6 +150,8 @@ class MapWrapper {
         return temp;
     }
 
+        // The getData() method constructs a URL and sends a GET request to retrieve information about the clicked location from the active overlay layer 
+    // using the WMS protocol. It then processes the retrieved data and returns it.
     static getData(point, overlay, bounds, size, crs) {
 
         const projectionKey = 'srs';
@@ -164,6 +187,11 @@ class MapWrapper {
         return MapWrapper.fetchOfGetFeatureInfo(overlay._url, options);
     }
 
+
+    // fetchOfGetFeatureInfo sends a HTTP GET request to a given URL with query parameters specified in options. 
+    // It first calls MapWrapper.createGetFeatureInfoLink to construct the complete URL with the query parameters, 
+    // and then uses the fetch API to send the request. The response from the server is then converted to text using the .text() method, 
+    // and the resulting promise is returned. If an error occurs during the fetch operation, the error message is logged to the console using console.error.
     static async fetchOfGetFeatureInfo(url, options) {
         const fetchLink = MapWrapper.createGetFeatureInfoLink(url, options);
         return await fetch(fetchLink)
@@ -173,6 +201,8 @@ class MapWrapper {
             });
     }
 
+    // createGetFeatureInfoLink takes a URL and an object options as input, and returns the URL with the query parameters specified in options appended to it.
+    // The query parameters are constructed by iterating through the key-value pairs in options and concatenating them with = and & characters to form the query string. The resulting URL is then returned.
     static createGetFeatureInfoLink(url, options) {
         for (const option in options) {
             url = url + option + '=' + options[option] + '&';

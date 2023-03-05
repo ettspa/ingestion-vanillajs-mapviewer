@@ -1,5 +1,9 @@
 class ChartManager {
     
+    // This method takes a chart container element and a data object as parameters.
+    // It creates a configuration object for the Chart.js library with the provided data, 
+    // and initializes a new chart object using the provided container and configuration.
+    // It also dispatches an event signaling that the chart has been opened and stops the loading spinner
     static initChart(chartContainer,data) {
         let container = chartContainer;
         let otherContainer;
@@ -62,10 +66,12 @@ class ChartManager {
         return chart;
     }
 
+    // This method simply calls the destroy method on the provided chart object.
     static destroyChart(chart){
         chart.destroy();
     }
 
+    // This method hides the provided chart container element and dispatches an event signaling that the chart has been closed.
     static closeChartDisplayer(chartContainer){
         let container = chartContainer;
         if (typeof container === "string") {
